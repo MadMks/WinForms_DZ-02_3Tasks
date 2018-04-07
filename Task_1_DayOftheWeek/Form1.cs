@@ -15,6 +15,7 @@ namespace Task_1_DayOftheWeek
         public Form1()
         {
             InitializeComponent();
+
         }
     }
 }
