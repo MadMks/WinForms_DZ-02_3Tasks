@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.maskedTextBoxDate = new System.Windows.Forms.MaskedTextBox();
             this.labelTextBoxDate = new System.Windows.Forms.Label();
             this.groupBoxRadioButton = new System.Windows.Forms.GroupBox();
+            this.radioButtonSecond = new System.Windows.Forms.RadioButton();
+            this.radioButtonMinute = new System.Windows.Forms.RadioButton();
+            this.radioButtonDay = new System.Windows.Forms.RadioButton();
+            this.radioButtonMonth = new System.Windows.Forms.RadioButton();
+            this.radioButtonYear = new System.Windows.Forms.RadioButton();
             this.groupBoxAnswer = new System.Windows.Forms.GroupBox();
             this.labelAnswer = new System.Windows.Forms.Label();
             this.buttonTimeCompute = new System.Windows.Forms.Button();
-            this.radioButtonYear = new System.Windows.Forms.RadioButton();
-            this.radioButtonMonth = new System.Windows.Forms.RadioButton();
-            this.radioButtonDay = new System.Windows.Forms.RadioButton();
-            this.radioButtonMinute = new System.Windows.Forms.RadioButton();
-            this.radioButtonSecond = new System.Windows.Forms.RadioButton();
             this.groupBoxRadioButton.SuspendLayout();
             this.groupBoxAnswer.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +77,58 @@
             this.groupBoxRadioButton.TabStop = false;
             this.groupBoxRadioButton.Text = "Вариант вывода";
             // 
+            // radioButtonSecond
+            // 
+            this.radioButtonSecond.AutoSize = true;
+            this.radioButtonSecond.Location = new System.Drawing.Point(7, 112);
+            this.radioButtonSecond.Name = "radioButtonSecond";
+            this.radioButtonSecond.Size = new System.Drawing.Size(82, 17);
+            this.radioButtonSecond.TabIndex = 4;
+            this.radioButtonSecond.Text = "В секундах";
+            this.radioButtonSecond.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonMinute
+            // 
+            this.radioButtonMinute.AutoSize = true;
+            this.radioButtonMinute.Location = new System.Drawing.Point(7, 89);
+            this.radioButtonMinute.Name = "radioButtonMinute";
+            this.radioButtonMinute.Size = new System.Drawing.Size(76, 17);
+            this.radioButtonMinute.TabIndex = 3;
+            this.radioButtonMinute.Text = "В минутах";
+            this.radioButtonMinute.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonDay
+            // 
+            this.radioButtonDay.AutoSize = true;
+            this.radioButtonDay.Checked = true;
+            this.radioButtonDay.Location = new System.Drawing.Point(7, 66);
+            this.radioButtonDay.Name = "radioButtonDay";
+            this.radioButtonDay.Size = new System.Drawing.Size(59, 17);
+            this.radioButtonDay.TabIndex = 2;
+            this.radioButtonDay.TabStop = true;
+            this.radioButtonDay.Text = "В днях";
+            this.radioButtonDay.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonMonth
+            // 
+            this.radioButtonMonth.AutoSize = true;
+            this.radioButtonMonth.Location = new System.Drawing.Point(7, 43);
+            this.radioButtonMonth.Name = "radioButtonMonth";
+            this.radioButtonMonth.Size = new System.Drawing.Size(75, 17);
+            this.radioButtonMonth.TabIndex = 1;
+            this.radioButtonMonth.Text = "В месяцах";
+            this.radioButtonMonth.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonYear
+            // 
+            this.radioButtonYear.AutoSize = true;
+            this.radioButtonYear.Location = new System.Drawing.Point(7, 20);
+            this.radioButtonYear.Name = "radioButtonYear";
+            this.radioButtonYear.Size = new System.Drawing.Size(64, 17);
+            this.radioButtonYear.TabIndex = 0;
+            this.radioButtonYear.Text = "В годах";
+            this.radioButtonYear.UseVisualStyleBackColor = true;
+            // 
             // groupBoxAnswer
             // 
             this.groupBoxAnswer.Controls.Add(this.labelAnswer);
@@ -105,58 +158,6 @@
             this.buttonTimeCompute.UseVisualStyleBackColor = true;
             this.buttonTimeCompute.Click += new System.EventHandler(this.buttonTimeCompute_Click);
             // 
-            // radioButtonYear
-            // 
-            this.radioButtonYear.AutoSize = true;
-            this.radioButtonYear.Location = new System.Drawing.Point(7, 20);
-            this.radioButtonYear.Name = "radioButtonYear";
-            this.radioButtonYear.Size = new System.Drawing.Size(64, 17);
-            this.radioButtonYear.TabIndex = 0;
-            this.radioButtonYear.Text = "В годах";
-            this.radioButtonYear.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonMonth
-            // 
-            this.radioButtonMonth.AutoSize = true;
-            this.radioButtonMonth.Location = new System.Drawing.Point(7, 43);
-            this.radioButtonMonth.Name = "radioButtonMonth";
-            this.radioButtonMonth.Size = new System.Drawing.Size(75, 17);
-            this.radioButtonMonth.TabIndex = 1;
-            this.radioButtonMonth.Text = "В месяцах";
-            this.radioButtonMonth.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDay
-            // 
-            this.radioButtonDay.AutoSize = true;
-            this.radioButtonDay.Checked = true;
-            this.radioButtonDay.Location = new System.Drawing.Point(7, 66);
-            this.radioButtonDay.Name = "radioButtonDay";
-            this.radioButtonDay.Size = new System.Drawing.Size(59, 17);
-            this.radioButtonDay.TabIndex = 2;
-            this.radioButtonDay.TabStop = true;
-            this.radioButtonDay.Text = "В днях";
-            this.radioButtonDay.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonMinute
-            // 
-            this.radioButtonMinute.AutoSize = true;
-            this.radioButtonMinute.Location = new System.Drawing.Point(7, 89);
-            this.radioButtonMinute.Name = "radioButtonMinute";
-            this.radioButtonMinute.Size = new System.Drawing.Size(76, 17);
-            this.radioButtonMinute.TabIndex = 3;
-            this.radioButtonMinute.Text = "В минутах";
-            this.radioButtonMinute.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonSecond
-            // 
-            this.radioButtonSecond.AutoSize = true;
-            this.radioButtonSecond.Location = new System.Drawing.Point(7, 112);
-            this.radioButtonSecond.Name = "radioButtonSecond";
-            this.radioButtonSecond.Size = new System.Drawing.Size(82, 17);
-            this.radioButtonSecond.TabIndex = 4;
-            this.radioButtonSecond.Text = "В секундах";
-            this.radioButtonSecond.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,6 +168,7 @@
             this.Controls.Add(this.groupBoxRadioButton);
             this.Controls.Add(this.labelTextBoxDate);
             this.Controls.Add(this.maskedTextBoxDate);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Остаток времени";
