@@ -57,6 +57,8 @@
             this.ClientSize = new System.Drawing.Size(214, 133);
             this.Controls.Add(this.labelDayOfWeek);
             this.Controls.Add(this.datePicker);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "День недели";
             this.ResumeLayout(false);
