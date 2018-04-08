@@ -168,6 +168,7 @@
             this.Controls.Add(this.groupBoxRadioButton);
             this.Controls.Add(this.labelTextBoxDate);
             this.Controls.Add(this.maskedTextBoxDate);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
