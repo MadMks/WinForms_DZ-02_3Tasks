@@ -18,10 +18,20 @@ namespace Task_2_TimeIsLeft
         private const int NUMBER_OF_MINUTES_IN_A_HOURS = 60;
         private const int NUMBER_OF_SECONDS_IN_A_MINUTE = 60;
 
+        /// <summary>
+        /// Вводимая дата пользователем.
+        /// </summary>
+        private DateTime _enteredDate;
+        /// <summary>
+        /// Промежуток времени до вводимой даты.
+        /// </summary>
+        private TimeSpan _timeLeft;
+        /// <summary>
+        /// Строка с ответом.
+        /// </summary>
+        private string _answerStr;
 
-        DateTime enteredDate;   // TODO
-        TimeSpan _timeLeft;
-        string _answerStr;
+
 
         public Form1()
         {
@@ -29,54 +39,68 @@ namespace Task_2_TimeIsLeft
         }
 
 
+
+        // Обработчики событий.
+
+
+        /// <summary>
+        /// Обработчик нажатия клавиши на textBox
+        /// </summary>
         private void maskedTextBoxDate_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
             {
-                // то событие Ентер кнопки
                 this.CheckDate();
             }
         }
 
+
+        /// <summary>
+        /// Обработчик нажатия кнопку "Рассчитать".
+        /// </summary>
         private void buttonTimeCompute_Click(object sender, EventArgs e)
         {
             this.CheckDate();
         }
 
+
+
+        // Методы.
+
+        
+        
+        /// <summary>
+        /// Проверка даты.
+        /// </summary>
         private void CheckDate()
         {
             if (IsDateIsCorrect() == true)
             {
-                // если дата раньше текущей
-                // вывести в Ответ что "введенная дата уже была"
                 if (this.IsTheDateWasAlready() == true)
                 {
-                    //this.labelAnswer.Text = "Дата уже была";
                     this.DisplayTheAnswer("Дата уже была");
                 }
                 else
                 {
-                    // вычисления оставшегося времени
                     this.ComputeTheRemainingTime();
 
-                    // вывести ответ в лабел
                     this.DisplayTheAnswer(_answerStr);
                 }
             }
             else
             {
-                // подсветить красным дату
-                //this.maskedTextBoxDate.BackColor = Color.FromArgb(232, 107, 107);   // TODO
-                // или показать текст что неправильная дата
-                //this.labelAnswer.Text = "Дата не существует";
                 this.DisplayTheAnswer("Дата не существует");
             }
         }
 
+
+        /// <summary>
+        /// Вычисление оставшегося времени.
+        /// </summary>
         private void ComputeTheRemainingTime()
         {
             // Вычисление разницы времени.
-            this._timeLeft = this.enteredDate - DateTime.Now;
+            this._timeLeft = this._enteredDate - DateTime.Now;
 
             // Сохранение и вычисление ответа
             // соответственно выбора в radioButton.
@@ -102,6 +126,11 @@ namespace Task_2_TimeIsLeft
             }
         }
 
+
+        /// <summary>
+        /// Вычисление кол-ва лет.
+        /// </summary>
+        /// <returns>Строка с значением кол-ва лет.</returns>
         private string ComputeNumberOfYears()
         {
             return Math.Round(
@@ -110,6 +139,11 @@ namespace Task_2_TimeIsLeft
                     + " лет/год(а)";
         }
 
+
+        /// <summary>
+        /// Вычисление кол-ва месяцев.
+        /// </summary>
+        /// <returns>Строка с значением кол-ва месяцев.</returns>
         private string ComputeNumberOfMonths()
         {
             return Math.Round(
@@ -118,12 +152,22 @@ namespace Task_2_TimeIsLeft
                     + " месяц(ев)";
         }
 
+
+        /// <summary>
+        /// Вычисление кол-ва дней.
+        /// </summary>
+        /// <returns>Строка с значением кол-ва дней.</returns>
         private string ComputeNumberOfDays()
         {
             return _timeLeft.Days.ToString()
                     + " день/дней";
         }
 
+
+        /// <summary>
+        /// Вычисление кол-ва минут.
+        /// </summary>
+        /// <returns>Строка с значением кол-ва минут.</returns>
         private string ComputeNumberOfMinutes()
         {
             return (
@@ -134,10 +178,11 @@ namespace Task_2_TimeIsLeft
                     + " минут(а)";
         }
 
+
         /// <summary>
-        /// Вычислить количество секунд до указанной даты.
+        /// Вычисление кол-ва секунд до указанной даты.
         /// </summary>
-        /// <returns>Строка в которой указано "кол-во секунд".</returns>
+        /// <returns>Строка с значением кол-во секунд.</returns>
         private string ComputeNumberOfSeconds()
         {
             return (
@@ -162,7 +207,7 @@ namespace Task_2_TimeIsLeft
         /// <returns>true если дата уже была.</returns>
         private bool IsTheDateWasAlready()
         {
-            if (this.enteredDate <= DateTime.Now)
+            if (this._enteredDate <= DateTime.Now)
             {
                 return true;
             }
@@ -179,7 +224,7 @@ namespace Task_2_TimeIsLeft
         /// <returns>true если дата корректна.</returns>
         private bool IsDateIsCorrect()
         {
-            if (DateTime.TryParse(this.maskedTextBoxDate.Text, out enteredDate))
+            if (DateTime.TryParse(this.maskedTextBoxDate.Text, out _enteredDate))
             {
                 return true;
             }
@@ -190,6 +235,10 @@ namespace Task_2_TimeIsLeft
         }
 
 
+        /// <summary>
+        /// Вывод ответа на форму.
+        /// </summary>
+        /// <param name="str">Строка для вывода.</param>
         private void DisplayTheAnswer(string str)
         {
             this.labelAnswer.Text = str;
