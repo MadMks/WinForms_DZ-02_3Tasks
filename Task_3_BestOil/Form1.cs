@@ -14,6 +14,11 @@ namespace Task_3_BestOil
     {
         public List<Gas> GasolineList { get; set; }
 
+        public float AccountGas { get; set; }
+        public float AccountCafe { get; set; }
+        public float AccountTotal { get; set; }
+        public float TotalAccountForDay { get; set; }
+
         public Form1()
         {
             InitializeComponent();
@@ -54,6 +59,18 @@ namespace Task_3_BestOil
                 += CheckBoxCafeFrenchFries_CheckStateChanged;
             this.checkBoxCafeCocaCola.CheckStateChanged
                 += CheckBoxCafeCocaCola_CheckStateChanged;
+
+            //
+            this.textBoxCafeHotDogQuantity.EnabledChanged
+                += TextBoxCafeHotDogQuantity_EnabledChanged;
+        }
+
+        private void TextBoxCafeHotDogQuantity_EnabledChanged(object sender, EventArgs e)
+        {
+            this.AccountCafe += (
+                Single.Parse(this.textBoxCafeHotDogPrice.Text)
+                * Int32.Parse(this.textBoxCafeHotDogQuantity.Text)
+                );
         }
 
         private void CheckBoxCafeCocaCola_CheckStateChanged(object sender, EventArgs e)
@@ -76,17 +93,20 @@ namespace Task_3_BestOil
 
         private void CheckBoxCafeHotDog_CheckStateChanged(object sender, EventArgs e)
         {
-            //if ((sender as CheckBox).CheckState == CheckState.Checked)
-            //{
-            //    this.textBoxCafeHotDogQuantity.ReadOnly = false;
-            //}
-            //else
-            //{
-            //    this.textBoxCafeHotDogQuantity.ReadOnly = true;
-            //}
-
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeHotDogQuantity);
+
+            // если чекбокс чекед
+            // - и текстБокс Квантити не пустой
+            // то считаем, и добавляем в счет кафе.
+
+            // иначе если чекбокс не чекед
+            // - и текстБокс  квант не пустой
+            // то считаем, и вычтем из счета кафе.
+
+            /// метод подсчета (сендер, аккоунт)
+            /// проверка если чекед. то запустить меттод АккоунтПлюс
+            /// иначе АккоунтМинус.
         }
 
         /// <summary>
@@ -105,8 +125,10 @@ namespace Task_3_BestOil
             }
             else
             {
-                textBox.ReadOnly = true;
+                textBox.ReadOnly = true;    // выключаем ввод.
             }
+
+            textBox.Text = "0";
         }
 
         private void RadioButtonGBSumGas_CheckedChanged(object sender, EventArgs e)
@@ -134,6 +156,14 @@ namespace Task_3_BestOil
             this.radioButtonGBQuantityGas.Checked = true;
             this.textBoxQuantityGas.ReadOnly = false;
             this.textBoxSumGas.ReadOnly = true;
+
+            this.textBoxCafeHotDogQuantity.Text = "0";
+            this.textBoxCafeHamburgerQuantity.Text = "0";
+            this.textBoxCafeFrenchFriesQuantity.Text = "0";
+            this.textBoxCafeCocaColaQuantity.Text = "0";
+
+            this.AccountGas = 0.0F;
+            this.AccountCafe = 0.0F;
         }
 
         private void CreatingAListOfGasoline()
