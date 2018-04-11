@@ -256,7 +256,7 @@
             this.groupBoxMiniCafe.Controls.Add(this.groupBoxToPayCafe);
             this.groupBoxMiniCafe.Location = new System.Drawing.Point(258, 21);
             this.groupBoxMiniCafe.Name = "groupBoxMiniCafe";
-            this.groupBoxMiniCafe.Size = new System.Drawing.Size(229, 340);
+            this.groupBoxMiniCafe.Size = new System.Drawing.Size(252, 340);
             this.groupBoxMiniCafe.TabIndex = 1;
             this.groupBoxMiniCafe.TabStop = false;
             this.groupBoxMiniCafe.Text = "Мини-Кафе";
@@ -491,7 +491,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 494);
+            this.ClientSize = new System.Drawing.Size(535, 494);
             this.Controls.Add(this.groupBoxSalesAmount);
             this.Controls.Add(this.groupBoxTotalPayment);
             this.Controls.Add(this.groupBoxMiniCafe);

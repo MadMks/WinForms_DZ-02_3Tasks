@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -61,34 +62,112 @@ namespace Task_3_BestOil
                 += CheckBoxCafeCocaCola_CheckStateChanged;
 
             //
-            this.textBoxCafeHotDogQuantity.EnabledChanged
-                += TextBoxCafeHotDogQuantity_EnabledChanged;
+            this.textBoxCafeHotDogQuantity.TextChanged
+                += TextBoxCafeHotDogQuantity_TextChanged;
+            this.textBoxCafeHamburgerQuantity.TextChanged
+                += TextBoxCafeHamburgerQuantity_TextChanged;
+            this.textBoxCafeFrenchFriesQuantity.TextChanged
+                += TextBoxCafeFrenchFriesQuantity_TextChanged;
+            this.textBoxCafeCocaColaQuantity.TextChanged
+                += TextBoxCafeCocaColaQuantity_TextChanged;
+
+
+            // измеение полной стоимости заказа в кафе
+            //this.labelToPayCafePrice +=
+
+           
         }
 
-        private void TextBoxCafeHotDogQuantity_EnabledChanged(object sender, EventArgs e)
+
+
+
+        // TODO 4 нижних (и может еще какието)
+        // внутри вызывать собственное событие
+        // "изменение заказа кафе".
+        private void TextBoxCafeCocaColaQuantity_TextChanged(object sender, EventArgs e)
         {
-            this.AccountCafe += (
-                Single.Parse(this.textBoxCafeHotDogPrice.Text)
-                * Int32.Parse(this.textBoxCafeHotDogQuantity.Text)
-                );
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
+
+        private void TextBoxCafeFrenchFriesQuantity_TextChanged(object sender, EventArgs e)
+        {
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+        }
+
+        private void TextBoxCafeHamburgerQuantity_TextChanged(object sender, EventArgs e)
+        {
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+        }
+
+        private void TextBoxCafeHotDogQuantity_TextChanged(object sender, EventArgs e)
+        {
+            if (this.textBoxCafeHotDogQuantity.Text == "")
+            {
+                this.textBoxCafeHotDogQuantity.Text = "0";
+            }
+
+            // TODO TODO TODO 
+            //Color defaultColor = (sender as TextBox).BackColor;
+
+
+            string quantityPattern = @"^\d+$";
+            Regex regex = new Regex(quantityPattern);
+            if (regex.IsMatch(this.textBoxCafeHotDogQuantity.Text) == true)
+            {
+                (sender as TextBox).BackColor = TextBox.DefaultBackColor;
+
+                this.ComputeFullCostOfOrderInCafe();
+                //
+                this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+            }
+            else
+            {
+                (sender as TextBox).BackColor = Color.PaleVioletRed;
+            }
+
+            //this.textBoxCafeHotDogQuantity.Text
+
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+        }
+        
+
 
         private void CheckBoxCafeCocaCola_CheckStateChanged(object sender, EventArgs e)
         {
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeCocaColaQuantity);
+
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
         private void CheckBoxCafeFrenchFries_CheckStateChanged(object sender, EventArgs e)
         {
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeFrenchFriesQuantity);
+
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
         private void CheckBoxCafeHamburger_CheckStateChanged(object sender, EventArgs e)
         {
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeHamburgerQuantity);
+
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
         private void CheckBoxCafeHotDog_CheckStateChanged(object sender, EventArgs e)
@@ -96,17 +175,55 @@ namespace Task_3_BestOil
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeHotDogQuantity);
 
-            // если чекбокс чекед
-            // - и текстБокс Квантити не пустой
-            // то считаем, и добавляем в счет кафе.
 
-            // иначе если чекбокс не чекед
-            // - и текстБокс  квант не пустой
-            // то считаем, и вычтем из счета кафе.
+            this.ComputeFullCostOfOrderInCafe();
+            //
+            this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+        }
 
-            /// метод подсчета (сендер, аккоунт)
-            /// проверка если чекед. то запустить меттод АккоунтПлюс
-            /// иначе АккоунтМинус.
+
+        /// <summary>
+        /// Считаем полную стоимость заказа в кафе.
+        /// </summary>
+        private void ComputeFullCostOfOrderInCafe()
+        {
+            // Обнуляем сумму счета кафе перед пересчетом.
+            this.AccountCafe = 0;
+
+            if (this.checkBoxCafeHotDog.Checked == true)
+            {
+                this.AddToAccountPriceForOneProductName(
+                    this.textBoxCafeHotDogPrice, this.textBoxCafeHotDogQuantity);
+            }
+
+            if (this.checkBoxCafeHamburger.Checked == true)
+            {
+                this.AddToAccountPriceForOneProductName(
+                    this.textBoxCafeHamburgerPrice, this.textBoxCafeHamburgerQuantity);
+            }
+
+            if (this.checkBoxCafeFrenchFries.Checked == true)
+            {
+                this.AddToAccountPriceForOneProductName(
+                    this.textBoxCafeFrenchFriesPrice, this.textBoxCafeFrenchFriesQuantity);
+            }
+
+            if (this.checkBoxCafeCocaCola.Checked == true)
+            {
+                this.AddToAccountPriceForOneProductName(
+                    this.textBoxCafeCocaColaPrice, this.textBoxCafeCocaColaQuantity);
+            }
+        }
+
+        /// <summary>
+        /// Добавить к счету цену за одно название продукта.
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="quantity"></param>
+        private void AddToAccountPriceForOneProductName(TextBox price, TextBox quantity)
+        {
+            this.AccountCafe 
+                += Single.Parse(price.Text) * Int32.Parse(quantity.Text);
         }
 
         /// <summary>
@@ -156,6 +273,11 @@ namespace Task_3_BestOil
             this.radioButtonGBQuantityGas.Checked = true;
             this.textBoxQuantityGas.ReadOnly = false;
             this.textBoxSumGas.ReadOnly = true;
+
+            this.textBoxCafeHotDogPrice.Text = "1";
+            this.textBoxCafeHamburgerPrice.Text = "2";
+            this.textBoxCafeFrenchFriesPrice.Text = "3";
+            this.textBoxCafeCocaColaPrice.Text = "4";
 
             this.textBoxCafeHotDogQuantity.Text = "0";
             this.textBoxCafeHamburgerQuantity.Text = "0";
