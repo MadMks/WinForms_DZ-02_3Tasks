@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Task_3_BestOil.Properties;
 
 namespace Task_3_BestOil
 {
@@ -62,23 +63,57 @@ namespace Task_3_BestOil
                 += CheckBoxCafeCocaCola_CheckStateChanged;
 
             //
-            this.textBoxCafeHotDogQuantity.TextChanged
-                += TextBoxCafeHotDogQuantity_TextChanged;
-            this.textBoxCafeHamburgerQuantity.TextChanged
-                += TextBoxCafeHamburgerQuantity_TextChanged;
-            this.textBoxCafeFrenchFriesQuantity.TextChanged
-                += TextBoxCafeFrenchFriesQuantity_TextChanged;
-            this.textBoxCafeCocaColaQuantity.TextChanged
-                += TextBoxCafeCocaColaQuantity_TextChanged;
+            ////this.textBoxCafeHotDogQuantity.TextChanged
+            ////    += TextBoxCafeHotDogQuantity_TextChanged;
+            ////this.textBoxCafeHamburgerQuantity.TextChanged
+            ////    += TextBoxCafeHamburgerQuantity_TextChanged;
+            ////this.textBoxCafeFrenchFriesQuantity.TextChanged
+            ////    += TextBoxCafeFrenchFriesQuantity_TextChanged;
+            ////this.textBoxCafeCocaColaQuantity.TextChanged
+            ////    += TextBoxCafeCocaColaQuantity_TextChanged;
 
 
             // измеение полной стоимости заказа в кафе
             //this.labelToPayCafePrice +=
 
-           
+            // подписываю на 8 событий свой обработчик. // TODO 4 event
+
+            //this.checkBoxCafeHotDog.CheckStateChanged
+            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
+            //this.checkBoxCafeHamburger.CheckStateChanged
+            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
+            //this.checkBoxCafeFrenchFries.CheckStateChanged
+            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
+            //this.checkBoxCafeCocaCola.CheckStateChanged
+            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
+
+            this.textBoxCafeHotDogQuantity.TextChanged
+                 += CheckAndTextBoxCafe_Quantity_TextChanged;
+            this.textBoxCafeHamburgerQuantity.TextChanged
+                += CheckAndTextBoxCafe_Quantity_TextChanged;
+            this.textBoxCafeFrenchFriesQuantity.TextChanged
+                += CheckAndTextBoxCafe_Quantity_TextChanged;
+            this.textBoxCafeCocaColaQuantity.TextChanged
+                += CheckAndTextBoxCafe_Quantity_TextChanged;
         }
 
-
+        // один обработчик на 8 событий // TODO 4 event
+        private void CheckAndTextBoxCafe_Quantity_TextChanged(object sender, EventArgs e)
+        {
+            if (sender is TextBox)
+            {
+                if (this.IsOnlyNumbersAreEntered(sender) == true)
+                {
+                    this.ComputeFullCostOfOrderInCafe();
+                    //
+                    this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+                }
+                else
+                {
+                    this.ErrorHandlingInput(sender);
+                }
+            }
+        }
 
 
         // TODO 4 нижних (и может еще какието)
@@ -107,37 +142,56 @@ namespace Task_3_BestOil
 
         private void TextBoxCafeHotDogQuantity_TextChanged(object sender, EventArgs e)
         {
-            if (this.textBoxCafeHotDogQuantity.Text == "")
+
+            //if (this.IsOnlyNumbersAreEntered(sender) == true)
+            //{
+            //    this.ComputeFullCostOfOrderInCafe();
+            //    //
+            //    this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+            //}
+            //else
+            //{
+            //    this.ErrorHandlingInput(sender);
+            //}
+        }
+
+
+        /// <summary>
+        /// Обработка ошибок ввода
+        /// </summary>
+        /// <param name="sender"></param>
+        private void ErrorHandlingInput(object sender)
+        {
+            if ((sender as TextBox).Text != "")
             {
-                this.textBoxCafeHotDogQuantity.Text = "0";
+                MessageBox.Show(
+                   "Можно вводить только цифры.", "Ошибка ввода",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // TODO TODO TODO 
-            //Color defaultColor = (sender as TextBox).BackColor;
+            (sender as TextBox).Text = "0";
+        }
 
-
+        /// <summary>
+        /// Вводится ли только числовое значение.
+        /// </summary>
+        /// <param name="sender">textBox в котором произошли изменения.</param>
+        /// <returns>true если вводится числовое значение.</returns>
+        private bool IsOnlyNumbersAreEntered(object sender)
+        {
             string quantityPattern = @"^\d+$";
-            Regex regex = new Regex(quantityPattern);
-            if (regex.IsMatch(this.textBoxCafeHotDogQuantity.Text) == true)
-            {
-                (sender as TextBox).BackColor = TextBox.DefaultBackColor;
+            Regex regex = new Regex(quantityPattern);   // регулярное выражение.
 
-                this.ComputeFullCostOfOrderInCafe();
-                //
-                this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+            if (regex.IsMatch((sender as TextBox).Text) == true)
+            {
+                return true;
             }
             else
             {
-                (sender as TextBox).BackColor = Color.PaleVioletRed;
+                return false;
             }
-
-            //this.textBoxCafeHotDogQuantity.Text
-
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
-        
+
 
 
         private void CheckBoxCafeCocaCola_CheckStateChanged(object sender, EventArgs e)
@@ -176,9 +230,9 @@ namespace Task_3_BestOil
                 sender, this.textBoxCafeHotDogQuantity);
 
 
-            this.ComputeFullCostOfOrderInCafe();
-            //
-            this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
+            //this.ComputeFullCostOfOrderInCafe();
+            ////
+            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
 

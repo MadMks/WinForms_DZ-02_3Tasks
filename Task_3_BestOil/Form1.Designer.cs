@@ -256,7 +256,7 @@
             this.groupBoxMiniCafe.Controls.Add(this.groupBoxToPayCafe);
             this.groupBoxMiniCafe.Location = new System.Drawing.Point(258, 21);
             this.groupBoxMiniCafe.Name = "groupBoxMiniCafe";
-            this.groupBoxMiniCafe.Size = new System.Drawing.Size(252, 340);
+            this.groupBoxMiniCafe.Size = new System.Drawing.Size(265, 340);
             this.groupBoxMiniCafe.TabIndex = 1;
             this.groupBoxMiniCafe.TabStop = false;
             this.groupBoxMiniCafe.Text = "Мини-Кафе";
