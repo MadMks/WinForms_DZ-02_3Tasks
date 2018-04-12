@@ -25,14 +25,6 @@ namespace Task_3_BestOil
         {
             InitializeComponent();
 
-            //this.comboBoxGas.Items.AddRange(new object[] {
-            //    "А-80",
-            //    "А-92",
-            //    "А-95",
-            //    "А-95+"
-            //});
-
-            //this.comboBoxGas.Text = "А-80";
             this.Load += Form1_Load;
         }
 
@@ -62,98 +54,51 @@ namespace Task_3_BestOil
             this.checkBoxCafeCocaCola.CheckStateChanged
                 += CheckBoxCafeCocaCola_CheckStateChanged;
 
-            //
-            ////this.textBoxCafeHotDogQuantity.TextChanged
-            ////    += TextBoxCafeHotDogQuantity_TextChanged;
-            ////this.textBoxCafeHamburgerQuantity.TextChanged
-            ////    += TextBoxCafeHamburgerQuantity_TextChanged;
-            ////this.textBoxCafeFrenchFriesQuantity.TextChanged
-            ////    += TextBoxCafeFrenchFriesQuantity_TextChanged;
-            ////this.textBoxCafeCocaColaQuantity.TextChanged
-            ////    += TextBoxCafeCocaColaQuantity_TextChanged;
-
-
-            // измеение полной стоимости заказа в кафе
-            //this.labelToPayCafePrice +=
-
-            // подписываю на 8 событий свой обработчик. // TODO 4 event
-
-            //this.checkBoxCafeHotDog.CheckStateChanged
-            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
-            //this.checkBoxCafeHamburger.CheckStateChanged
-            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
-            //this.checkBoxCafeFrenchFries.CheckStateChanged
-            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
-            //this.checkBoxCafeCocaCola.CheckStateChanged
-            //    += CheckAndTextBoxCafe_Quantity_TextChanged;
-
+            // подписываю на 4 события свой обработчик.
             this.textBoxCafeHotDogQuantity.TextChanged
-                 += CheckAndTextBoxCafe_Quantity_TextChanged;
+                 += TextBoxCafe_Quantity_TextChanged;
             this.textBoxCafeHamburgerQuantity.TextChanged
-                += CheckAndTextBoxCafe_Quantity_TextChanged;
+                += TextBoxCafe_Quantity_TextChanged;
             this.textBoxCafeFrenchFriesQuantity.TextChanged
-                += CheckAndTextBoxCafe_Quantity_TextChanged;
+                += TextBoxCafe_Quantity_TextChanged;
             this.textBoxCafeCocaColaQuantity.TextChanged
-                += CheckAndTextBoxCafe_Quantity_TextChanged;
+                += TextBoxCafe_Quantity_TextChanged;
+
+
+            // при нажатии мышкой на поле - цифры выделяются,
+            // для удобства введения кол-ва товара.
+            // один обработчик.
+            this.textBoxCafeHotDogQuantity.MouseClick
+                += TextBoxCafe_Quantity_MouseClick;
+            this.textBoxCafeHamburgerQuantity.MouseClick
+                += TextBoxCafe_Quantity_MouseClick;
+            this.textBoxCafeFrenchFriesQuantity.MouseClick
+                += TextBoxCafe_Quantity_MouseClick;
+            this.textBoxCafeCocaColaQuantity.MouseClick
+                += TextBoxCafe_Quantity_MouseClick;
         }
 
-        // один обработчик на 8 событий // TODO 4 event
-        private void CheckAndTextBoxCafe_Quantity_TextChanged(object sender, EventArgs e)
+
+        private void TextBoxCafe_Quantity_MouseClick(object sender, MouseEventArgs e)
         {
-            if (sender is TextBox)
+            (sender as TextBox).SelectAll();   // TODO заменить одним обработчиком!?
+        }
+
+        // один обработчик на 4 события
+        private void TextBoxCafe_Quantity_TextChanged(object sender, EventArgs e)
+        {
+            if (this.IsOnlyNumbersAreEntered(sender) == true)
             {
-                if (this.IsOnlyNumbersAreEntered(sender) == true)
-                {
-                    this.ComputeFullCostOfOrderInCafe();
-                    //
-                    this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
-                }
-                else
-                {
-                    this.ErrorHandlingInput(sender);
-                }
+                this.ComputeFullCostOfOrderInCafe();
+                //
+                this.labelToPayCafePrice.Text = this.AccountCafe.ToString("0.00");
+            }
+            else
+            {
+                this.ErrorHandlingInput(sender);
             }
         }
 
-
-        // TODO 4 нижних (и может еще какието)
-        // внутри вызывать собственное событие
-        // "изменение заказа кафе".
-        private void TextBoxCafeCocaColaQuantity_TextChanged(object sender, EventArgs e)
-        {
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
-        }
-
-        private void TextBoxCafeFrenchFriesQuantity_TextChanged(object sender, EventArgs e)
-        {
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
-        }
-
-        private void TextBoxCafeHamburgerQuantity_TextChanged(object sender, EventArgs e)
-        {
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
-        }
-
-        private void TextBoxCafeHotDogQuantity_TextChanged(object sender, EventArgs e)
-        {
-
-            //if (this.IsOnlyNumbersAreEntered(sender) == true)
-            //{
-            //    this.ComputeFullCostOfOrderInCafe();
-            //    //
-            //    this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
-            //}
-            //else
-            //{
-            //    this.ErrorHandlingInput(sender);
-            //}
-        }
 
 
         /// <summary>
@@ -170,6 +115,7 @@ namespace Task_3_BestOil
             }
 
             (sender as TextBox).Text = "0";
+            this.textBoxCafeCocaColaQuantity.SelectAll();
         }
 
         /// <summary>
@@ -198,41 +144,24 @@ namespace Task_3_BestOil
         {
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeCocaColaQuantity);
-
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
         private void CheckBoxCafeFrenchFries_CheckStateChanged(object sender, EventArgs e)
         {
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeFrenchFriesQuantity);
-
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
         private void CheckBoxCafeHamburger_CheckStateChanged(object sender, EventArgs e)
         {
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeHamburgerQuantity);
-
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
         private void CheckBoxCafeHotDog_CheckStateChanged(object sender, EventArgs e)
         {
             this.StateCheckBoxChangesStateTextBox(
                 sender, this.textBoxCafeHotDogQuantity);
-
-
-            //this.ComputeFullCostOfOrderInCafe();
-            ////
-            //this.labelToPayCafePrice.Text = this.AccountCafe.ToString();
         }
 
 
@@ -328,10 +257,10 @@ namespace Task_3_BestOil
             this.textBoxQuantityGas.ReadOnly = false;
             this.textBoxSumGas.ReadOnly = true;
 
-            this.textBoxCafeHotDogPrice.Text = "1";
-            this.textBoxCafeHamburgerPrice.Text = "2";
-            this.textBoxCafeFrenchFriesPrice.Text = "3";
-            this.textBoxCafeCocaColaPrice.Text = "4";
+            this.textBoxCafeHotDogPrice.Text = "1,10";
+            this.textBoxCafeHamburgerPrice.Text = "2,20";
+            this.textBoxCafeFrenchFriesPrice.Text = "3,30";
+            this.textBoxCafeCocaColaPrice.Text = "4,40";
 
             this.textBoxCafeHotDogQuantity.Text = "0";
             this.textBoxCafeHamburgerQuantity.Text = "0";
