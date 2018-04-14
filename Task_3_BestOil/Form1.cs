@@ -88,9 +88,9 @@ namespace Task_3_BestOil
             // для удобства введения кол-ва или суммы бензина.
             // один обработчик.
             this.textBoxQuantityGas.MouseClick
-                += TextBoxGas_QuantitySumPrice_TextChanged;
+                += TextBoxCafe_Quantity_MouseClick;
             this.textBoxSumGas.MouseClick
-                += TextBoxGas_QuantitySumPrice_TextChanged;
+                += TextBoxCafe_Quantity_MouseClick;
         }
 
 
@@ -142,18 +142,11 @@ namespace Task_3_BestOil
 
         private void ComputeAmountOfGas()
         {
-            //this.AccountGas
-            //    = Single.Parse(this.textBoxSumGas.Text)
-            //    / Single.Parse(this.textBoxGasPrise.Text);
-
-
-            if (this.IsOnlyNumbersAreEntered(this.textBoxSumGas) == true)
+            if (this.IsOnlyNumbersAreEnteredOrFloat(this.textBoxSumGas) == true)
             {
                 this.AccountGas
                 = Single.Parse(this.textBoxSumGas.Text)
                 / Single.Parse(this.textBoxGasPrise.Text);
-                //
-                //this.labelToPayCafePrice.Text = this.AccountCafe.ToString("0.00");
             }
             else
             {
@@ -163,10 +156,36 @@ namespace Task_3_BestOil
 
         private void ComputeAmountToBePaidForGas()
         {
-            this.AccountGas 
+            
+
+            if (this.IsOnlyNumbersAreEnteredOrFloat(this.textBoxQuantityGas) == true)
+            {
+                this.AccountGas
                 = Single.Parse(this.textBoxGasPrise.Text)
-                * Int32.Parse(this.textBoxQuantityGas.Text);
+                * Single.Parse(this.textBoxQuantityGas.Text);
+            }
+            else
+            {
+                this.ErrorHandlingInput(this.textBoxQuantityGas);
+            }
         }
+
+        private bool IsOnlyNumbersAreEnteredOrFloat(TextBox textBox)
+        {
+            string quantityPattern = @"^\d+|\d+[,]\d+$";
+            Regex regex = new Regex(quantityPattern);   // регулярное выражение.
+
+            if (regex.IsMatch(textBox.Text) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        
 
 
 
