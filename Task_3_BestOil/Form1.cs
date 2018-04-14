@@ -91,8 +91,25 @@ namespace Task_3_BestOil
                 += TextBoxCafe_Quantity_MouseClick;
             this.textBoxSumGas.MouseClick
                 += TextBoxCafe_Quantity_MouseClick;
+
+            //
+            this.buttonTotalPaymentToCount.MouseClick
+                += ButtonTotalPaymentToCount_MouseClick;
         }
 
+        private void ButtonTotalPaymentToCount_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.AccountTotal = 0;
+
+            if (this.radioButtonGBQuantityGas.Checked == true)
+            {
+                this.AccountTotal += this.AccountGas;
+            }
+
+            this.AccountTotal += this.AccountCafe;
+
+            this.labelTotalPaymentPrice.Text = this.AccountTotal.ToString("0.00");
+        }
 
         private void TextBoxCafe_Quantity_MouseClick(object sender, MouseEventArgs e)
         {
