@@ -76,6 +76,21 @@ namespace Task_3_BestOil
                 += TextBoxCafe_Quantity_MouseClick;
             this.textBoxCafeCocaColaQuantity.MouseClick
                 += TextBoxCafe_Quantity_MouseClick;
+
+            //
+            this.textBoxGasPrise.TextChanged
+                += TextBoxGas_QuantitySumPrice_TextChanged;
+            this.textBoxQuantityGas.TextChanged
+                += TextBoxGas_QuantitySumPrice_TextChanged;
+            this.textBoxSumGas.TextChanged
+                += TextBoxGas_QuantitySumPrice_TextChanged;
+            // при нажатии мышкой на поле - цифры выделяются,
+            // для удобства введения кол-ва или суммы бензина.
+            // один обработчик.
+            this.textBoxQuantityGas.MouseClick
+                += TextBoxGas_QuantitySumPrice_TextChanged;
+            this.textBoxSumGas.MouseClick
+                += TextBoxGas_QuantitySumPrice_TextChanged;
         }
 
 
@@ -84,7 +99,17 @@ namespace Task_3_BestOil
             (sender as TextBox).SelectAll();   // TODO заменить одним обработчиком!?
         }
 
+        private void TextBoxGas_Quantity_MouseClick(object sender, MouseEventArgs e)
+        {
+            (sender as TextBox).SelectAll();   // TODO заменить одним обработчиком!?
+        }
+
         // один обработчик на 4 события
+        /// <summary>
+        /// cafe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxCafe_Quantity_TextChanged(object sender, EventArgs e)
         {
             if (this.IsOnlyNumbersAreEntered(sender) == true)
@@ -97,6 +122,50 @@ namespace Task_3_BestOil
             {
                 this.ErrorHandlingInput(sender);
             }
+        }
+
+
+        // один обработчик на 3 события
+        private void TextBoxGas_QuantitySumPrice_TextChanged(object sender, EventArgs e)
+        {
+            if (this.radioButtonGBQuantityGas.Checked == true)
+            {
+                this.ComputeAmountToBePaidForGas();
+            }
+            else if (this.radioButtonGBSumGas.Checked == true)
+            {
+                this.ComputeAmountOfGas();
+            }
+
+            this.labelToPayGasPrice.Text = this.AccountGas.ToString("0.00");
+        }
+
+        private void ComputeAmountOfGas()
+        {
+            //this.AccountGas
+            //    = Single.Parse(this.textBoxSumGas.Text)
+            //    / Single.Parse(this.textBoxGasPrise.Text);
+
+
+            if (this.IsOnlyNumbersAreEntered(this.textBoxSumGas) == true)
+            {
+                this.AccountGas
+                = Single.Parse(this.textBoxSumGas.Text)
+                / Single.Parse(this.textBoxGasPrise.Text);
+                //
+                //this.labelToPayCafePrice.Text = this.AccountCafe.ToString("0.00");
+            }
+            else
+            {
+                this.ErrorHandlingInput(this.textBoxSumGas);
+            }
+        }
+
+        private void ComputeAmountToBePaidForGas()
+        {
+            this.AccountGas 
+                = Single.Parse(this.textBoxGasPrise.Text)
+                * Int32.Parse(this.textBoxQuantityGas.Text);
         }
 
 
@@ -115,7 +184,7 @@ namespace Task_3_BestOil
             }
 
             (sender as TextBox).Text = "0";
-            this.textBoxCafeCocaColaQuantity.SelectAll();
+            (sender as TextBox).SelectAll();
         }
 
         /// <summary>
@@ -233,20 +302,24 @@ namespace Task_3_BestOil
 
         private void RadioButtonGBSumGas_CheckedChanged(object sender, EventArgs e)
         {
-            this.textBoxQuantityGas.ReadOnly = true;
+            this.textBoxQuantityGas.ReadOnly = true;    // отключаем ввод.
             this.textBoxSumGas.ReadOnly = false;
 
             this.groupBoxToPayGas.Text = "К выдаче";
             this.labelToPayGasHryvna.Text = "л.";
+
+            this.textBoxQuantityGas.Text = "0";
         }
 
         private void RadioButtonGBQuantityGas_CheckedChanged(object sender, EventArgs e)
         {
             this.textBoxQuantityGas.ReadOnly = false;
-            this.textBoxSumGas.ReadOnly = true;
+            this.textBoxSumGas.ReadOnly = true;     // отключаем ввод.
 
             this.groupBoxToPayGas.Text = "К оплате";
             this.labelToPayGasHryvna.Text = "грн.";
+
+            this.textBoxSumGas.Text = "0";
         }
 
         private void SetDefaultSettings()
@@ -266,6 +339,10 @@ namespace Task_3_BestOil
             this.textBoxCafeHamburgerQuantity.Text = "0";
             this.textBoxCafeFrenchFriesQuantity.Text = "0";
             this.textBoxCafeCocaColaQuantity.Text = "0";
+
+
+            this.textBoxQuantityGas.Text = "0";
+            this.textBoxSumGas.Text = "0";
 
             this.AccountGas = 0.0F;
             this.AccountCafe = 0.0F;

@@ -172,6 +172,7 @@
             this.textBoxSumGas.ReadOnly = true;
             this.textBoxSumGas.Size = new System.Drawing.Size(76, 21);
             this.textBoxSumGas.TabIndex = 7;
+            this.textBoxSumGas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBoxQuantityGas
             // 
@@ -180,6 +181,7 @@
             this.textBoxQuantityGas.ReadOnly = true;
             this.textBoxQuantityGas.Size = new System.Drawing.Size(76, 21);
             this.textBoxQuantityGas.TabIndex = 6;
+            this.textBoxQuantityGas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // radioButtonGBSumGas
             // 
@@ -304,6 +306,7 @@
             this.textBoxCafeCocaColaPrice.ReadOnly = true;
             this.textBoxCafeCocaColaPrice.Size = new System.Drawing.Size(43, 21);
             this.textBoxCafeCocaColaPrice.TabIndex = 14;
+            this.textBoxCafeCocaColaPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxCafeFrenchFriesPrice
             // 
@@ -312,6 +315,7 @@
             this.textBoxCafeFrenchFriesPrice.ReadOnly = true;
             this.textBoxCafeFrenchFriesPrice.Size = new System.Drawing.Size(43, 21);
             this.textBoxCafeFrenchFriesPrice.TabIndex = 13;
+            this.textBoxCafeFrenchFriesPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxCafeHamburgerPrice
             // 
@@ -320,6 +324,7 @@
             this.textBoxCafeHamburgerPrice.ReadOnly = true;
             this.textBoxCafeHamburgerPrice.Size = new System.Drawing.Size(43, 21);
             this.textBoxCafeHamburgerPrice.TabIndex = 12;
+            this.textBoxCafeHamburgerPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxCafeHotDogPrice
             // 
@@ -328,6 +333,7 @@
             this.textBoxCafeHotDogPrice.ReadOnly = true;
             this.textBoxCafeHotDogPrice.Size = new System.Drawing.Size(43, 21);
             this.textBoxCafeHotDogPrice.TabIndex = 6;
+            this.textBoxCafeHotDogPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // labelCafeQuantity
             // 
