@@ -43,6 +43,8 @@ namespace Task_3_BestOil
 
             this.CreatingAListOfGasoline();
 
+            this.SetFuelPrices();
+
             this.SetDefaultSettings();
 
             this.labelSalesAmount.Text = "0,00";
@@ -111,6 +113,14 @@ namespace Task_3_BestOil
                 += TimerBeforeRequest_Tick;
         }
 
+        private void SetFuelPrices()
+        {
+            this.textBoxCafeHotDogPrice.Text = "1,10";
+            this.textBoxCafeHamburgerPrice.Text = "2,20";
+            this.textBoxCafeFrenchFriesPrice.Text = "3,30";
+            this.textBoxCafeCocaColaPrice.Text = "4,40";
+        }
+
         private void TimerBeforeRequest_Tick(object sender, EventArgs e)
         {
             this.TimerBeforeRequest.Stop();
@@ -143,8 +153,9 @@ namespace Task_3_BestOil
         private void ButtonTotalPaymentToCount_MouseClick(object sender, MouseEventArgs e)
         {
             
-
+            // При каждом подсчете обнуляем общую сумму покупки с заправки и кафе.
             this.AccountTotal = 0;
+
 
             if (this.radioButtonGBQuantityGas.Checked == true)
             {
@@ -165,8 +176,13 @@ namespace Task_3_BestOil
                 //this.TimerBeforeRequest.Stop();
 
                 //this.PurchaseRequest();
+                // Не запускать таймер если ничего не выбрали.
+                if (this.AccountTotal > 0)
+                {
+                    this.TimerBeforeRequest.Start();
+                }
 
-                this.TimerBeforeRequest.Start();
+                
             }
 
             
@@ -174,19 +190,19 @@ namespace Task_3_BestOil
             //this.TimerBeforeRequest.Start();
         }
 
-        private void PurchaseRequest()
-        {
+        //private void PurchaseRequest()
+        //{
             
 
-            do
-            {
-                //System.Threading.Thread.Sleep(10000);
-                this.TimerBeforeRequest.Start();
+        //    do
+        //    {
+        //        //System.Threading.Thread.Sleep(10000);
+        //        this.TimerBeforeRequest.Start();
 
                 
 
-            } while (resultRequest == DialogResult.No);
-        }
+        //    } while (resultRequest == DialogResult.No);
+        //}
 
         private void TextBoxCafe_Quantity_MouseClick(object sender, MouseEventArgs e)
         {
@@ -443,10 +459,14 @@ namespace Task_3_BestOil
             this.textBoxQuantityGas.ReadOnly = false;
             this.textBoxSumGas.ReadOnly = true;
 
-            this.textBoxCafeHotDogPrice.Text = "1,10";
-            this.textBoxCafeHamburgerPrice.Text = "2,20";
-            this.textBoxCafeFrenchFriesPrice.Text = "3,30";
-            this.textBoxCafeCocaColaPrice.Text = "4,40";
+            this.checkBoxCafeHotDog.Checked = false;
+            this.checkBoxCafeHamburger.Checked = false;
+            this.checkBoxCafeFrenchFries.Checked = false;
+            this.checkBoxCafeCocaCola.Checked = false;
+
+
+
+            this.comboBoxGas.SelectedIndex = 0;
 
             this.textBoxCafeHotDogQuantity.Text = "0";
             this.textBoxCafeHamburgerQuantity.Text = "0";
@@ -457,13 +477,20 @@ namespace Task_3_BestOil
             this.textBoxQuantityGas.Text = "0";
             this.textBoxSumGas.Text = "0";
 
-            this.AccountGas = 0.0F;
-            this.AccountCafe = 0.0F;
+            this.SetDefaultAmountPrice();
+
+            
 
             this.labelToPayGasPrice.Text = "0,00";
             this.labelToPayCafePrice.Text = "0,00";
             this.labelTotalPaymentPrice.Text = "0,00";
             
+        }
+
+        private void SetDefaultAmountPrice()
+        {
+            this.AccountGas = 0.0F;
+            this.AccountCafe = 0.0F;
         }
 
         private void CreatingAListOfGasoline()
