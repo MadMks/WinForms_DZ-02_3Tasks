@@ -113,7 +113,7 @@ namespace Task_3_BestOil
 
         private void TimerBeforeRequest_Tick(object sender, EventArgs e)
         {
-            //this.TimerBeforeRequest.Stop();
+            this.TimerBeforeRequest.Stop();
 
             resultRequest = MessageBox.Show("Оформить покупку?", "Оформление покупки",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -127,7 +127,11 @@ namespace Task_3_BestOil
                 // обнулить
                 this.SetDefaultSettings();
 
-                this.TimerBeforeRequest.Stop();
+                //this.TimerBeforeRequest.Stop();
+            }
+            else
+            {
+                this.TimerBeforeRequest.Start();
             }
         }
 
@@ -151,7 +155,9 @@ namespace Task_3_BestOil
             {
                 //this.TimerBeforeRequest.Stop();
 
-                this.PurchaseRequest();
+                //this.PurchaseRequest();
+
+                this.TimerBeforeRequest.Start();
             }
 
             
