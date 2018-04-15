@@ -14,12 +14,19 @@ namespace Task_3_BestOil
 {
     public partial class Form1 : Form
     {
+        private const int DELAY_BEFORE_REQUEST = 10;
+        public Timer TimerBeforeRequest { get; set; }
+
         public List<Gas> GasolineList { get; set; }
 
         public float AccountGas { get; set; }
         public float AccountCafe { get; set; }
         public float AccountTotal { get; set; }
         public float TotalAccountForDay { get; set; }
+
+        DialogResult resultRequest;
+
+
 
         public Form1()
         {
@@ -30,15 +37,19 @@ namespace Task_3_BestOil
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            TimerBeforeRequest = new Timer();
+            TimerBeforeRequest.Interval = DELAY_BEFORE_REQUEST * 1000;
+
+
             this.CreatingAListOfGasoline();
 
             this.SetDefaultSettings();
 
-            
+            this.labelSalesAmount.Text = "0,00";
 
             // gas
-            this.comboBoxGas.SelectedIndexChanged += ComboBoxGas_SelectedIndexChanged;
+            this.comboBoxGas.SelectedIndexChanged
+                += ComboBoxGas_SelectedIndexChanged;
             this.radioButtonGBQuantityGas.CheckedChanged
                 += RadioButtonGBQuantityGas_CheckedChanged;
             this.radioButtonGBSumGas.CheckedChanged
@@ -95,10 +106,35 @@ namespace Task_3_BestOil
             //
             this.buttonTotalPaymentToCount.MouseClick
                 += ButtonTotalPaymentToCount_MouseClick;
+
+            this.TimerBeforeRequest.Tick
+                += TimerBeforeRequest_Tick;
+        }
+
+        private void TimerBeforeRequest_Tick(object sender, EventArgs e)
+        {
+            //this.TimerBeforeRequest.Stop();
+
+            resultRequest = MessageBox.Show("Оформить покупку?", "Оформление покупки",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
+            if (resultRequest == DialogResult.Yes)
+            {
+                this.TotalAccountForDay += this.AccountTotal;
+
+                this.labelSalesAmount.Text = this.TotalAccountForDay.ToString("0.00");
+
+                // обнулить
+                this.SetDefaultSettings();
+
+                this.TimerBeforeRequest.Stop();
+            }
         }
 
         private void ButtonTotalPaymentToCount_MouseClick(object sender, MouseEventArgs e)
         {
+            
+
             this.AccountTotal = 0;
 
             if (this.radioButtonGBQuantityGas.Checked == true)
@@ -109,6 +145,32 @@ namespace Task_3_BestOil
             this.AccountTotal += this.AccountCafe;
 
             this.labelTotalPaymentPrice.Text = this.AccountTotal.ToString("0.00");
+
+
+            if (this.TimerBeforeRequest.Enabled == false)
+            {
+                //this.TimerBeforeRequest.Stop();
+
+                this.PurchaseRequest();
+            }
+
+            
+
+            //this.TimerBeforeRequest.Start();
+        }
+
+        private void PurchaseRequest()
+        {
+            
+
+            do
+            {
+                //System.Threading.Thread.Sleep(10000);
+                this.TimerBeforeRequest.Start();
+
+                
+
+            } while (resultRequest == DialogResult.No);
         }
 
         private void TextBoxCafe_Quantity_MouseClick(object sender, MouseEventArgs e)
@@ -382,6 +444,11 @@ namespace Task_3_BestOil
 
             this.AccountGas = 0.0F;
             this.AccountCafe = 0.0F;
+
+            this.labelToPayGasPrice.Text = "0,00";
+            this.labelToPayCafePrice.Text = "0,00";
+            this.labelTotalPaymentPrice.Text = "0,00";
+            
         }
 
         private void CreatingAListOfGasoline()
