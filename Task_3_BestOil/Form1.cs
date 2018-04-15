@@ -120,6 +120,11 @@ namespace Task_3_BestOil
             
             if (resultRequest == DialogResult.Yes)
             {
+                //if (this.radioButtonGBSumGas.Checked == true)
+                //{
+                //    this.AccountTotal += Single.Parse(this.textBoxSumGas.Text);
+                //}
+
                 this.TotalAccountForDay += this.AccountTotal;
 
                 this.labelSalesAmount.Text = this.TotalAccountForDay.ToString("0.00");
@@ -144,6 +149,10 @@ namespace Task_3_BestOil
             if (this.radioButtonGBQuantityGas.Checked == true)
             {
                 this.AccountTotal += this.AccountGas;
+            }
+            else if (this.radioButtonGBSumGas.Checked == true)
+            {
+                this.AccountTotal += Single.Parse(this.textBoxSumGas.Text);
             }
 
             this.AccountTotal += this.AccountCafe;
